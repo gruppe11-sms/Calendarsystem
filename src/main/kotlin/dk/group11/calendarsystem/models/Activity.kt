@@ -14,4 +14,5 @@ data class Activity(
         var title: String = "",
         var startDate: Date = Date(),
         var endDate: Date = Date()
+
 )

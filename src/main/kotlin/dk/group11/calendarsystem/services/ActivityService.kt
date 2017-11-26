@@ -3,8 +3,12 @@ package dk.group11.calendarsystem.services
 import dk.group11.calendarsystem.clients.*
 import dk.group11.calendarsystem.models.Activity
 import dk.group11.calendarsystem.repositories.ActivityRepository
+import org.springframework.stereotype.Service
 
-class ActivityService(private val activityRepository: ActivityRepository, private val courseSystemClient: CourseSystemClient) {
+@Service
+class ActivityService(private val activityRepository: ActivityRepository,
+                      private val courseSystemClient: CourseSystemClient) {
+
     fun getActivity(id: Long): Activity {
         return activityRepository.findOne(id)
     }
@@ -28,7 +32,7 @@ class ActivityService(private val activityRepository: ActivityRepository, privat
             ))
         }
 
-        courseSystemClient.getAssignmentsByUserId(userId).forEach { assignment: Assignment->
+        courseSystemClient.getAssignmentsByUserId(userId).forEach { assignment: Assignment ->
             calenderEntries.add(CalenderEntry(
                     activity = activityRepository.findOne(assignment.activityId),
                     activityDetail = assignment,
@@ -36,7 +40,7 @@ class ActivityService(private val activityRepository: ActivityRepository, privat
             ))
         }
 
-        courseSystemClient.getEvents().forEach { event : Event ->
+        courseSystemClient.getEvents().forEach { event: Event ->
             calenderEntries.add(CalenderEntry(
                     activity = activityRepository.findOne(event.activityId),
                     activityDetail = event,
@@ -45,7 +49,5 @@ class ActivityService(private val activityRepository: ActivityRepository, privat
         }
 
         return calenderEntries
-
-
     }
 }

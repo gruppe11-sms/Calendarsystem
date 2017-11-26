@@ -1,6 +1,5 @@
-package dk.group11.coursesystem.security
+package dk.group11.calendarsystem.security
 
-import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.jsonwebtoken.Jwts
 import org.springframework.security.authentication.AuthenticationManager

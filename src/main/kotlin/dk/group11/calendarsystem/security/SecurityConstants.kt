@@ -1,4 +1,4 @@
-package dk.group11.coursesystem.security
+package dk.group11.calendarsystem.security
 
 const val SECRET = "SecretKeyToGenJWTs"
 const val TOKEN_PREFIX = "Bearer "

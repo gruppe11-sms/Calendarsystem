@@ -3,8 +3,8 @@ package dk.group11.calendarsystem.clients
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.github.kittinunf.fuel.Fuel
 import dk.group11.calendarsystem.exceptions.BadGateWayException
-import dk.group11.coursesystem.security.HEADER_STRING
-import dk.group11.coursesystem.security.SecurityService
+import dk.group11.calendarsystem.security.HEADER_STRING
+import dk.group11.calendarsystem.security.SecurityService
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.context.annotation.Configuration
 import org.springframework.stereotype.Service
@@ -34,8 +34,8 @@ data class Lesson(
         val Course: Course = Course()
 ) : IActivity
 
-interface IActivity{
- val activityId : Long
+interface IActivity {
+    val activityId: Long
 }
 
 
@@ -61,7 +61,8 @@ data class Event(
 ) : IActivity
 
 @Service
-class CourseSystemClient(private val courseConfig: CourseConfigurationProperties, private val securityService: SecurityService) {
+class CourseSystemClient(private val courseConfig: CourseConfigurationProperties,
+                         private val securityService: SecurityService) {
 
     fun getParticipantsByUserId(userId: Long): List<Participant> {
         val (_, _, result) = Fuel.get(courseConfig.url + "/api/courses/participants/user/" + userId)
@@ -102,8 +103,6 @@ class CourseSystemClient(private val courseConfig: CourseConfigurationProperties
                 { error -> throw BadGateWayException(error.toString()) }
         ).toList()
     }
-
-
 }
 
 @Configuration

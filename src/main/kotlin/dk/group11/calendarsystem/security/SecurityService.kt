@@ -1,4 +1,5 @@
-package dk.group11.coursesystem.security
+package dk.group11.calendarsystem.security
+
 
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service

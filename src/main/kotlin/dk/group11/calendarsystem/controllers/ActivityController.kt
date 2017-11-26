@@ -13,7 +13,7 @@ class ActivityController(private val activityService: ActivityService) {
         return activityService.getActivities()
     }
 
-    @GetMapping
+    @GetMapping("/{id]")
     fun getActivity(@PathVariable id: Long): Activity{
         return activityService.getActivity(id)
     }

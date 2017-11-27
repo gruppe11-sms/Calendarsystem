@@ -13,13 +13,13 @@ class ActivityController(private val activityService: ActivityService) {
         return activityService.getActivities()
     }
 
-    @GetMapping("/{id]")
+    @GetMapping("/{id}")
     fun getActivity(@PathVariable id: Long): Activity{
         return activityService.getActivity(id)
     }
 
-    @GetMapping
-    fun getActivity(@RequestParam("activities") userIds: String): Iterable<Activity> {
+    @GetMapping("/ids")
+    fun getActivity(@RequestParam("ids") userIds: String): Iterable<Activity> {
         val userids = userIds.split(",").mapNotNull { it.toLongOrNull() }
         return activityService.getActivities(userids)
     }

@@ -11,7 +11,7 @@ class ActivityService(private val activityRepository: ActivityRepository) {
         return activityRepository.findOne(id)
     }
 
-    fun getActivities(): List<Activity> {
+    fun getActivities(): Iterable<Activity> {
         return activityRepository.findAll().toList()
     }
 

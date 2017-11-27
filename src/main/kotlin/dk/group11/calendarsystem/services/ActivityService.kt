@@ -1,13 +1,11 @@
 package dk.group11.calendarsystem.services
 
-import dk.group11.calendarsystem.clients.*
 import dk.group11.calendarsystem.models.Activity
 import dk.group11.calendarsystem.repositories.ActivityRepository
 import org.springframework.stereotype.Service
 
 @Service
-class ActivityService(private val activityRepository: ActivityRepository,
-                      private val courseSystemClient: CourseSystemClient) {
+class ActivityService(private val activityRepository: ActivityRepository) {
 
     fun getActivity(id: Long): Activity {
         return activityRepository.findOne(id)
@@ -17,37 +15,15 @@ class ActivityService(private val activityRepository: ActivityRepository,
         return activityRepository.findAll().toList()
     }
 
+    fun getActivities(userIds: List<Long>): Iterable<Activity> {
+        return activityRepository.findAll(userIds)
+    }
+
     fun createActivity(activity: Activity): Activity {
         return activityRepository.save(activity)
     }
 
-    fun getUserActivities(userId: Long): List<CalenderEntry> {
-        val calenderEntries = ArrayList<CalenderEntry>()
-
-        courseSystemClient.getLessonsByUserId(userId).forEach { lesson: Lesson ->
-            calenderEntries.add(CalenderEntry(
-                    activity = activityRepository.findOne(lesson.activityId),
-                    activityDetail = lesson,
-                    type = ActivityType.Lesson
-            ))
-        }
-
-        courseSystemClient.getAssignmentsByUserId(userId).forEach { assignment: Assignment ->
-            calenderEntries.add(CalenderEntry(
-                    activity = activityRepository.findOne(assignment.activityId),
-                    activityDetail = assignment,
-                    type = ActivityType.Assignment
-            ))
-        }
-
-        courseSystemClient.getEvents().forEach { event: Event ->
-            calenderEntries.add(CalenderEntry(
-                    activity = activityRepository.findOne(event.activityId),
-                    activityDetail = event,
-                    type = ActivityType.Event
-            ))
-        }
-
-        return calenderEntries
+    fun updateActivity(activity: Activity) {
+        activityRepository.save(activity)
     }
 }

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*
 class ActivityController(private val activityService: ActivityService) {
 
     @GetMapping
-    fun getActivities(): List<Activity>{
+    fun getActivities(): Iterable<Activity> {
         return activityService.getActivities()
     }
 
@@ -18,9 +18,20 @@ class ActivityController(private val activityService: ActivityService) {
         return activityService.getActivity(id)
     }
 
+    @GetMapping
+    fun getActivity(@RequestParam("activities") userIds: String): Iterable<Activity> {
+        val userids = userIds.split(",").mapNotNull { it.toLongOrNull() }
+        return activityService.getActivities(userids)
+    }
+
     @PostMapping
     fun createActivity(@RequestBody activity: Activity): Activity {
         return activityService.createActivity(activity)
+    }
+
+    @PutMapping
+    fun updateActivity(activity: Activity) {
+        activityService.updateActivity(activity)
     }
 
 }

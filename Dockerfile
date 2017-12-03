@@ -12,6 +12,9 @@ COPY --from=builder /home/gradle/project/build/libs/calendersystem-0.0.1-SNAPSHO
 ENV SPRING_DATASOURCE_URL=jdbc:postgresql://calender-database:5432/postgres \
     SPRING_DATASOURCE_USERNAME=postgres \
     SPRING_DATASOURCE_PASSWORD=postgres \
-    SPRING_JPA_GENERATE-DDL=true
+    SPRING_JPA_GENERATE-DDL=true \
+    AUDIT_URL=http://auditsystem:8086 \
+    ROLE_URL=http://rolesystem:8084 \
+    ROLE_USERNAME=system
 EXPOSE 8086
 CMD ["java", "-jar", "/usr/bin/calendersystem-0.0.1-SNAPSHOT.jar"]

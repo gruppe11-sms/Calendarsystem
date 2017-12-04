@@ -1,5 +1,6 @@
 package dk.group11.calendarsystem.services
 
+import dk.group11.calendarsystem.exceptions.BadRequestException
 import dk.group11.calendarsystem.models.Activity
 import dk.group11.calendarsystem.repositories.ActivityRepository
 import org.springframework.stereotype.Service
@@ -9,10 +10,11 @@ class ActivityService(private val activityRepository: ActivityRepository) {
 
     fun getActivity(id: Long): Activity {
         return activityRepository.findOne(id)
+                ?: throw BadRequestException("Activity with id: $id not found")
     }
 
     fun getActivities(): Iterable<Activity> {
-        return activityRepository.findAll().toList()
+        return activityRepository.findAll()
     }
 
     fun getActivities(userIds: List<Long>): Iterable<Activity> {
@@ -27,3 +29,4 @@ class ActivityService(private val activityRepository: ActivityRepository) {
         activityRepository.save(activity)
     }
 }
+

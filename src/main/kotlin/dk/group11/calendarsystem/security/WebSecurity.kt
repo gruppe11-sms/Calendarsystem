@@ -16,6 +16,7 @@ class WebSecurity(
 
     override fun configure(http: HttpSecurity) {
         http.cors().and().csrf().disable().authorizeRequests()
+                .antMatchers("/api/export").anonymous()
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(AuthorizationFilter(authenticationManager(), secretService))

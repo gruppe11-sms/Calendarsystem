@@ -19,9 +19,9 @@ class ActivityController(private val activityService: ActivityService) {
     }
 
     @GetMapping("/ids")
-    fun getActivity(@RequestParam("ids") userIds: String): Iterable<Activity> {
-        val userids = userIds.split(",").mapNotNull { it.toLongOrNull() }
-        return activityService.getActivities(userids)
+    fun getActivity(@RequestParam("ids") ids: String): Iterable<Activity> {
+        val activityIds = ids.split(",").mapNotNull { it.toLongOrNull() }
+        return activityService.getActivities(activityIds)
     }
 
     @PostMapping

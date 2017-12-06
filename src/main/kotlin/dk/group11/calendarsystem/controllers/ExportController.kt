@@ -16,8 +16,7 @@ class ExportController(private val activityService: ActivityService, private val
             value = "/api/export",
             method = arrayOf(RequestMethod.GET)
     )
-    fun getExport(@RequestParam("userId") id: String): String {
-        println("Called")
-        return iCalenderService.convertToICalFormat(activityService.getActivities())
+    fun getExport(@RequestParam("userId") id: Long): String {
+        return iCalenderService.convertToICalFormat(activityService.getActivitiesForUser(id))
     }
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
+@RequestMapping("/api/exports")
 class ExportController(
         private val activityService: ActivityService,
         private val iCalenderService: ICalenderService,
@@ -19,7 +20,6 @@ class ExportController(
     @RequestMapping(
 //            consumes = arrayOf("*/*"),
             produces = arrayOf("text/calendar"),
-            value = "/api/export",
             method = arrayOf(RequestMethod.GET)
     )
     fun getExport(

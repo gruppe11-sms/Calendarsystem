@@ -43,7 +43,7 @@ class RoleClient(
     }
 
     fun checkToken(token: String, userId: Long, tokenId: Long) {
-        val (_, _, result) = Fuel.get("${roleConfigProperties.url}/api/tokens",
+        val (request, response, result) = Fuel.get("${roleConfigProperties.url}/api/tokens",
                 listOf(
                         Pair("token", token),
                         Pair("userId", userId),

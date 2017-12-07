@@ -46,6 +46,7 @@ dependencies {
 	compile("org.springframework.retry:spring-retry")
 	compile("org.jetbrains.kotlin:kotlin-stdlib-jre8:${kotlinVersion}")
 	compile("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
+	compile group: 'org.mnode.ical4j', name: 'ical4j', version: '2.1.5'
 
 	runtime('org.postgresql:postgresql')
 	testCompile("com.h2database:h2:1.4.196")

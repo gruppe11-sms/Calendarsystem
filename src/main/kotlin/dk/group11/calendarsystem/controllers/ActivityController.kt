@@ -1,6 +1,7 @@
 package dk.group11.calendarsystem.controllers
 
 import dk.group11.calendarsystem.models.Activity
+import dk.group11.calendarsystem.models.ActivityDTO
 import dk.group11.calendarsystem.services.ActivityService
 import org.springframework.web.bind.annotation.*
 
@@ -9,29 +10,29 @@ import org.springframework.web.bind.annotation.*
 class ActivityController(private val activityService: ActivityService) {
 
     @GetMapping
-    fun getActivities(): Iterable<Activity> {
-        return activityService.getActivities()
+    fun getActivities(): Iterable<ActivityDTO> {
+        return activityService.getActivitiesForUser().map { it.toDTO(true) }
     }
 
     @GetMapping("/{id}")
-    fun getActivity(@PathVariable id: Long): Activity{
-        return activityService.getActivity(id)
+    fun getActivity(@PathVariable id: Long): ActivityDTO {
+        return activityService.getActivity(id).toDTO(true)
     }
 
     @GetMapping("/ids")
-    fun getActivity(@RequestParam("ids") userIds: String): Iterable<Activity> {
-        val userids = userIds.split(",").mapNotNull { it.toLongOrNull() }
-        return activityService.getActivities(userids)
+    fun getActivity(@RequestParam("ids") ids: String): Iterable<ActivityDTO> {
+        val activityIds = ids.split(",").mapNotNull { it.toLongOrNull() }
+        return activityService.getActivities(activityIds).map { it.toDTO(true) }
     }
 
     @PostMapping
-    fun createActivity(@RequestBody activity: Activity): Activity {
-        return activityService.createActivity(activity)
+    fun createActivity(@RequestBody activity: Activity): ActivityDTO {
+        return activityService.createActivity(activity).toDTO(true)
     }
 
     @PutMapping
-    fun updateActivity(activity: Activity) {
-        activityService.updateActivity(activity)
+    fun updateActivity(activity: Activity): ActivityDTO {
+        return activityService.updateActivity(activity).toDTO(true)
     }
 
 }

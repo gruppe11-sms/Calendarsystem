@@ -25,3 +25,4 @@ nbdist/
 .nb-gradle/
 
 system_password
+signing_key

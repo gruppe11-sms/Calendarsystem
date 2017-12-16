@@ -21,8 +21,10 @@ class ActivityService(
                 ?: throw NotFoundException("Activity with id '$id' was not found")
     }
 
-    fun getActivitiesForUser(userId: Long = securityService.getId()): Iterable<Activity> {
-        return participantRepository.findOne(userId).activities
+    fun getActivitiesForUser(userId: Long = -1): Iterable<Activity> {
+        val id = if (userId == -1L) securityService.getId() else userId // Yes, you should be able to use default parameters instead of this crap, but NOPE
+        val participant = getActivityParticipant(id)
+        return participant.activities
     }
 
     fun getActivities(activityIds: List<Long>): Iterable<Activity> {

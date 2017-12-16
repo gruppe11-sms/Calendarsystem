@@ -11,7 +11,7 @@ class ActivityController(private val activityService: ActivityService) {
 
     @GetMapping
     fun getActivities(): Iterable<ActivityDTO> {
-        return activityService.getActivitiesForUser().map { it.toDTO(true) }
+        return activityService.getActivitiesForUser().map { it.toDTO(false) }
     }
 
     @GetMapping("/{id}")
